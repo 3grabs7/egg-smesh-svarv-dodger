@@ -1,5 +1,4 @@
 import { loadBoard, populateBoard, objectArray } from './loadgameboard.js'
-import Cell from './cell.js'
 import { move, updateBoard } from './movement.js'
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -8,12 +7,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	// Find player
 	objectArray.forEach((obj) => {
 		if (obj.type === 'Player') {
-			obj.cell.innerHTML = 'P'
+			obj.cell.innerHTML = '🎾'
 		}
 	})
 	populateBoard()
 
-	setInterval(updateBoard, 300)
+	setInterval(updateBoard, 500)
 })
 
 document.addEventListener('keydown', (e) => {

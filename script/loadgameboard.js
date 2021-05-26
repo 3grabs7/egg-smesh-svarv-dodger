@@ -20,16 +20,22 @@ function loadBoard({ width, height }) {
 			column.setAttribute('col', `${j}`)
 			row.appendChild(column)
 
-			objectArray.push(
-				new Cell({ type: 'empty', icon: '', row: i, col: j, cell: column })
-			)
+			let newCell = new Cell({
+				type: 'empty',
+				icon: '',
+				row: i,
+				col: j,
+				cell: column,
+			})
+			objectArray.push(newCell)
 			if (j > 0) {
-				objectArray[objectArray.length - 1].nextCell =
-					objectArray[objectArray.length - 2]
+				newCell.nextCell = objectArray[objectArray.length - 2]
 			}
 
 			if (i == Math.floor(height / 2) && j == 0) {
 				objectArray[objectArray.length - 1].type = 'Player'
+				objectArray[objectArray.length - 1].icon = '🎾'
+				objectArray[objectArray.length - 1].innerHTML = '🎾'
 			}
 		}
 		gameBoard.appendChild(row)

@@ -23,16 +23,16 @@ export default class Cell {
 	}
 
 	update() {
-		console.log(this.type)
-		if (this.col === 8) {
+		if (this.col === 0 || this.nextCell === undefined) {
 			return
 		}
 
-		if (this.nextCell != undefined && this.type === 'Player') {
-			this.nextCell.type = this.type
-			this.nextCell.icon = this.icon
-			this.nextCell.cell.innerHTML = this.nextCell.icon
+		if (this.nextCell.type === 'Player') {
+			this.collision()
+			return
 		}
-		console.log(this.type)
+		this.nextCell.type = this.type
+		this.nextCell.icon = this.icon
+		this.nextCell.cell.innerHTML = this.nextCell.icon
 	}
 }
