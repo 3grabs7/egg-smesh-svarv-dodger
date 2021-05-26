@@ -1,6 +1,8 @@
-export { loadBoard, populateBoard }
+import Cell from './cell.js'
 
-import GameObject from './gameobject.js'
+export { loadBoard, populateBoard, objectArray }
+
+let objectArray = []
 
 function loadBoard({ width, height }) {
 	const main = document.querySelector('.main')
@@ -16,15 +18,22 @@ function loadBoard({ width, height }) {
 			column.className = 'main_gameboard_cellrow_cell'
 			column.setAttribute('row', `${i}`)
 			column.setAttribute('col', `${j}`)
-			if (i == Math.floor(height / 2) && j == 0) {
-				column.innerHTML = 'T'
-			}
 			row.appendChild(column)
-		}
 
+			objectArray.push(
+				new Cell({ type: 'empty', icon: '', row: i, col: j, cell: column })
+			)
+			if (j > 0) {
+				objectArray[objectArray.length - 1].nextCell =
+					objectArray[objectArray.length - 2]
+			}
+
+			if (i == Math.floor(height / 2) && j == 0) {
+				objectArray[objectArray.length - 1].type = 'Player'
+			}
+		}
 		gameBoard.appendChild(row)
 	}
-
 	main.appendChild(gameBoard)
 }
 
@@ -32,36 +41,44 @@ function populateBoard() {
 	// sten, svarv, ägg
 	let objectCount = [10, 5, 20]
 
-	const cells = Array.from(
-		document.querySelectorAll('.main_gameboard_cellrow_cell')
-	)
-
 	while (objectCount[0] + objectCount[1] + objectCount[2] > 0) {
 		const obj = Math.floor(Math.random() * objectCount.length)
-		const currentCell = Math.floor(Math.random() * cells.length)
+		const currentCell = Math.floor(Math.random() * objectArray.length)
 
 		if (
-			cells[currentCell].getAttribute('col') == 0 ||
-			cells[currentCell].getAttribute('col') == 1
+			objectArray[currentCell].cell.getAttribute('col') == 0 ||
+			objectArray[currentCell].cell.getAttribute('col') == 1
 		) {
 			continue
 		}
 
 		if (obj === 0) {
-			if (cells[currentCell].innerHTML === '' && objectCount[0] > 0) {
-				cells[currentCell].innerHTML = 'S'
+			if (
+				objectArray[currentCell].cell.innerHTML === '' &&
+				objectCount[0] > 0
+			) {
+				objectArray[currentCell].icon = '🥌'
+				objectArray[currentCell].type = 'Sten'
 				objectCount[0]--
 			}
 		}
 		if (obj === 1) {
-			if (cells[currentCell].innerHTML === '' && objectCount[1] > 0) {
-				cells[currentCell].innerHTML = 'SV'
+			if (
+				objectArray[currentCell].cell.innerHTML === '' &&
+				objectCount[1] > 0
+			) {
+				objectArray[currentCell].icon = '🕳'
+				objectArray[currentCell].type = 'Svarv'
 				objectCount[1]--
 			}
 		}
 		if (obj === 2) {
-			if (cells[currentCell].innerHTML === '' && objectCount[2] > 0) {
-				cells[currentCell].innerHTML = 'Ä'
+			if (
+				objectArray[currentCell].cell.innerHTML === '' &&
+				objectCount[2] > 0
+			) {
+				objectArray[currentCell].icon = '🥚'
+				objectArray[currentCell].type = 'Ägg'
 				objectCount[2]--
 			}
 		}
