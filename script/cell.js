@@ -31,8 +31,19 @@ export default class Cell {
 			this.collision()
 			return
 		}
+
 		this.nextCell.type = this.type
 		this.nextCell.icon = this.icon
 		this.nextCell.cell.innerHTML = this.nextCell.icon
+
+		if (this.col === 19) {
+			this.generate()
+		}
+	}
+
+	generate() {
+		this.type = 'empty'
+		this.icon = ''
+		this.cell.innerHTML = this.icon
 	}
 }

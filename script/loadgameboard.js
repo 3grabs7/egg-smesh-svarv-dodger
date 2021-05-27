@@ -52,8 +52,8 @@ function populateBoard() {
 		const currentCell = Math.floor(Math.random() * objectArray.length)
 
 		if (
-			objectArray[currentCell].cell.getAttribute('col') == 0 ||
-			objectArray[currentCell].cell.getAttribute('col') == 1
+			objectArray[currentCell].col == 0 ||
+			objectArray[currentCell].col == 1
 		) {
 			continue
 		}
@@ -65,6 +65,7 @@ function populateBoard() {
 			) {
 				objectArray[currentCell].icon = '🥌'
 				objectArray[currentCell].type = 'Sten'
+				objectArray[currentCell].cell.innerHTML = objectArray[currentCell].icon
 				objectCount[0]--
 			}
 		}
@@ -75,6 +76,7 @@ function populateBoard() {
 			) {
 				objectArray[currentCell].icon = '🕳'
 				objectArray[currentCell].type = 'Svarv'
+				objectArray[currentCell].cell.innerHTML = objectArray[currentCell].icon
 				objectCount[1]--
 			}
 		}
@@ -85,6 +87,7 @@ function populateBoard() {
 			) {
 				objectArray[currentCell].icon = '🥚'
 				objectArray[currentCell].type = 'Ägg'
+				objectArray[currentCell].cell.innerHTML = objectArray[currentCell].icon
 				objectCount[2]--
 			}
 		}
