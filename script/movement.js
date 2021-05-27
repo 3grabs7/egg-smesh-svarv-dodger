@@ -5,9 +5,17 @@ function move(direction) {
 	const currentCell = objectArray.filter((cell) => cell.type === 'Player')[0]
 
 	if (direction === 'up') {
-		destinationCell = objectArray.filter(
-			(cell) => cell.row === currentCell.row - 1 && cell.col === 0
-		)[0]
+		let destinationCell
+		if (currentCell.row === 0) {
+			destinationCell = objectArray.filter(
+				(cell) => cell.row === 8 && cell.col === 0
+			)[0]
+		} else {
+			destinationCell = objectArray.filter(
+				(cell) => cell.row === currentCell.row - 1 && cell.col === 0
+			)[0]
+		}
+
 		destinationCell.type = 'Player'
 		destinationCell.icon = '🎾'
 		destinationCell.cell.innerHTML = destinationCell.icon
@@ -18,21 +26,24 @@ function move(direction) {
 	}
 
 	if (direction === 'down') {
-		var destinationCell = cells.filter((cell) => {
-			if (
-				parseInt(currentCell[0].getAttribute('row')) ===
-					parseInt(cell.getAttribute('row')) - 1 &&
-				parseInt(cell.getAttribute('col')) === 0
-			) {
-				console.log(cell)
-				return cell
-			}
-		})
+		let destinationCell
+		if (currentCell.row === 8) {
+			destinationCell = objectArray.filter(
+				(cell) => cell.row === 0 && cell.col === 0
+			)[0]
+		} else {
+			destinationCell = objectArray.filter(
+				(cell) => cell.row === currentCell.row + 1 && cell.col === 0
+			)[0]
+		}
 
-		console.log(destinationCell)
-
-		destinationCell[0].innerHTML = 'P'
-		currentCell[0].innerText = ''
+		destinationCell.type = 'Player'
+		destinationCell.icon = '🎾'
+		destinationCell.cell.innerHTML = destinationCell.icon
+		currentCell.type = 'empty'
+		currentCell.icon = ''
+		currentCell.cell.innerHTML = currentCell.icon
+		return
 	}
 }
 

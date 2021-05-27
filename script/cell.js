@@ -42,8 +42,30 @@ export default class Cell {
 	}
 
 	generate() {
-		this.type = 'empty'
-		this.icon = ''
-		this.cell.innerHTML = this.icon
+		const pick = Math.random() * 100
+		if (pick < 50) {
+			this.type = 'empty'
+			this.icon = ''
+			this.cell.innerHTML = this.icon
+			return
+		}
+		if (pick >= 50 && pick < 70) {
+			this.type = 'Ägg'
+			this.icon = '🥚'
+			this.cell.innerHTML = this.icon
+			return
+		}
+		if (pick >= 70 && pick < 90) {
+			this.type = 'Sten'
+			this.icon = '🥌'
+			this.cell.innerHTML = this.icon
+			return
+		}
+		if (pick >= 90) {
+			this.type = 'Svarv'
+			this.icon = '🕳'
+			this.cell.innerHTML = this.icon
+			return
+		}
 	}
 }
