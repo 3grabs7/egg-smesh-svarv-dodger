@@ -16,6 +16,10 @@ function move(direction) {
 			)[0]
 		}
 
+		if (destinationCell.type !== 'empty') {
+			destinationCell.collision()
+		}
+
 		destinationCell.type = 'Player'
 		destinationCell.icon = '🎾'
 		destinationCell.cell.innerHTML = destinationCell.icon

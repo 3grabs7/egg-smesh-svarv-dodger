@@ -1,23 +1,29 @@
+const hp = document.querySelector('#hp')
+const score = document.querySelector('#score')
+
 export default class Cell {
-	constructor({ type, icon, row, col, cell, nextCell }) {
+	constructor({ type, icon, row, col, cell, nextCell, state }) {
 		this.type = type
 		this.icon = icon
 		this.row = row
 		this.col = col
 		this.cell = cell
 		this.nextCell = nextCell
+		this.state = state
 	}
 
 	collision() {
 		switch (this.type) {
 			case 'Sten':
-				console.log('-hp auch')
+				this.state.hp -= 5
+				hp.innerHTML = this.state.hp
 				break
 			case 'Svarv':
 				console.log('you dead')
 				break
 			case 'Ägg':
-				console.log('smesh')
+				this.state.score += 5
+				score.innerHTML = this.state.score
 				break
 		}
 	}
@@ -43,25 +49,25 @@ export default class Cell {
 
 	generate() {
 		const pick = Math.random() * 100
-		if (pick < 50) {
+		if (pick < 70) {
 			this.type = 'empty'
 			this.icon = ''
 			this.cell.innerHTML = this.icon
 			return
 		}
-		if (pick >= 50 && pick < 70) {
+		if (pick >= 70 && pick < 85) {
 			this.type = 'Ägg'
 			this.icon = '🥚'
 			this.cell.innerHTML = this.icon
 			return
 		}
-		if (pick >= 70 && pick < 90) {
+		if (pick >= 85 && pick < 95) {
 			this.type = 'Sten'
 			this.icon = '🥌'
 			this.cell.innerHTML = this.icon
 			return
 		}
-		if (pick >= 90) {
+		if (pick >= 95) {
 			this.type = 'Svarv'
 			this.icon = '🕳'
 			this.cell.innerHTML = this.icon

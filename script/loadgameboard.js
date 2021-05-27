@@ -4,7 +4,7 @@ export { loadBoard, populateBoard, objectArray }
 
 let objectArray = []
 
-function loadBoard({ width, height }) {
+function loadBoard({ width, height, state }) {
 	const main = document.querySelector('.main')
 
 	const gameBoard = document.createElement('div')
@@ -26,16 +26,18 @@ function loadBoard({ width, height }) {
 				row: i,
 				col: j,
 				cell: column,
+				state: state,
 			})
 			objectArray.push(newCell)
 			if (j > 0) {
 				newCell.nextCell = objectArray[objectArray.length - 2]
 			}
 
-			if (i == Math.floor(height / 2) && j == 0) {
+			if (i === Math.floor(height / 2) && j === 0) {
 				objectArray[objectArray.length - 1].type = 'Player'
 				objectArray[objectArray.length - 1].icon = '🎾'
-				objectArray[objectArray.length - 1].innerHTML = '🎾'
+				objectArray[objectArray.length - 1].innerHTML =
+					objectArray[objectArray.length - 1].icon
 			}
 		}
 		gameBoard.appendChild(row)
